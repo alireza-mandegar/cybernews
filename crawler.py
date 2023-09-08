@@ -18,11 +18,9 @@ def check_link_in_file(link):
             return True
         return False
 
-def check_news(news):
-    # First website
-    req = requests.get("https://news.ycombinator.com")
+def check_news(news, website):
+    req = requests.get(website)
     soup = BeautifulSoup(req.text, 'html.parser')
-
     links = soup.find_all('a')
 
     for link in links:
@@ -30,22 +28,11 @@ def check_news(news):
         if "https" in link.get("href") and news in link_text.lower():
             if not check_link_in_file(link.get("href")):
                 save_link_to_file(link.get("href"))
-                telegram_send_message(link.get("href"))
-
-    # Second website
-    req = requests.get("https://hckrnews.com")
-    soup = BeautifulSoup(req.text, 'html.parser')
-
-    links = soup.find_all('a')
-
-    for link in links:
-        link_text=str(link.text.strip())
-        if "https" in link.get("href") and news in link_text.lower():
-            if not check_link_in_file(link.get("href")):
-                save_link_to_file(link.get("href"))
-                telegram_send_message(link.get("href"))
-
+                telegram_send_message(str(news +": " + link_text + "\n" + link.get("href")))
 
 news=['linux', 'cve', 'exploit', 'vuln', 'windows', 'xss', 'csrf', 'ssrf', 'rce', 'sql', 'iran', 'apt']
+websites=["https://news.ycombinator.com", "https://hckrnews.com"]
 for new in news:
-    check_news(new)
+    for website in websites:
+        check_news(new, website)
+        check_news(new, website)
