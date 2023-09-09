@@ -30,7 +30,7 @@ def check_news(news, website):
                 save_link_to_file(link.get("href"))
                 telegram_send_message(str(news +": " + link_text + "\n" + link.get("href")))
 
-news=['linux', 'cve', 'exploit', 'vuln', 'windows', 'xss', 'csrf', 'ssrf', 'rce', 'sql', 'iran', 'apt']
+news=['linux', ' cve ', ' cve-', 'exploit', 'vuln', 'windows', 'xss', 'csrf', 'ssrf', 'sql', 'iran', 'apt ']
 websites=["https://news.ycombinator.com", "https://hckrnews.com"]
 for new in news:
     for website in websites:
