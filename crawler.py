@@ -92,6 +92,7 @@ def check_news(news, website):
 
 news=['linux', ' cve ', ' cve-', 'exploit', 'vuln', 'windows', 'xss', 'csrf', 'ssrf', 'sql', 'iran', 'apt ']
 websites=["https://news.ycombinator.com", "https://hckrnews.com"]
+check_new_user()
 for new in news:
     for website in websites:
         check_news(new, website)
