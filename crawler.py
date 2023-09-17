@@ -52,7 +52,7 @@ def get_chat_ids():
     return chat_ids
 
 def check_new_user():
-    bot_token = "6550075930:AAGAmVqUT6BsY6gUugWhX83NUWnk6PJ-UF8"
+    bot_token = "blaw blaw blaw"
     getUpdate = requests.get(f"https://api.telegram.org/bot{bot_token}/getUpdates").text
     datas = json.loads(getUpdate)
 
@@ -84,9 +84,11 @@ def check_news(news, website):
     for link in links:
         link_text=str(link.text.strip())
         if "https" in link.get("href") and news in link_text.lower():
-            if not check_link_in_file(link.get("href")):
-                save_link_to_file(link.get("href"))
-                telegram_send_message(str(news +": " + link_text + "\n" + link.get("href")))
+            if not check_string_in_file('sql.txt', link.get("href")):
+                append_to_file('sql.txt', link.get("href"))
+                chat_ids = get_chat_ids()
+                for chat_id in chat_ids:
+                    telegram_send_message(str(news +": " + link_text + "\n" + link.get("href")), chat_id)
 
 news=['linux', ' cve ', ' cve-', 'exploit', 'vuln', 'windows', 'xss', 'csrf', 'ssrf', 'sql', 'iran', 'apt ']
 websites=["https://news.ycombinator.com", "https://hckrnews.com"]
