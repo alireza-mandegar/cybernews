@@ -8,6 +8,13 @@ def telegram_send_message(message):
     params = {'chat_id': chat_id, 'text': message}
     response = requests.post(telegram_url, data=params)
 
+def append_to_file(file_path, data_to_append):
+    try:
+        with open(file_path, 'a') as file:
+            file.write(str(data_to_append) + "\n")
+    except:
+        pass
+
 def save_link_to_file(link):
     with open('sql.txt', 'a') as file:
         file.write(link + '\n')
