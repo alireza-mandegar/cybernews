@@ -51,6 +51,31 @@ def get_chat_ids():
         chat_ids = file.readlines()
     return chat_ids
 
+def check_new_user():
+    bot_token = "6550075930:AAGAmVqUT6BsY6gUugWhX83NUWnk6PJ-UF8"
+    getUpdate = requests.get(f"https://api.telegram.org/bot{bot_token}/getUpdates").text
+    datas = json.loads(getUpdate)
+
+    for data in datas["result"]:
+        try:
+            status = data["my_chat_member"]["new_chat_member"]["status"]
+            user_id = data["my_chat_member"]["from"]["id"]
+            if status == "member" and not check_string_in_file("member.txt", user_id):
+                append_to_file("member.txt", user_id)
+            elif status == "kicked" and check_string_in_file("member.txt", user_id):
+                delete_string_from_file("member.txt", user_id)
+        except:
+            pass
+        try:
+            user_id = data["message"]["from"]["id"]
+            command = data["message"]["text"]
+            if command == "/start" and not check_string_in_file("member.txt", user_id):
+                append_to_file("member.txt", user_id)
+            elif command == "/stop" and check_string_in_file("member.txt", user_id):
+                delete_string_from_file("member.txt", user_id)
+        except:
+            pass
+
 def check_news(news, website):
     req = requests.get(website)
     soup = BeautifulSoup(req.text, 'html.parser')
