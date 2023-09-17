@@ -27,6 +27,15 @@ def delete_string_from_file(file_path, string_to_delete):
     except:
         pass
 
+def check_string_in_file(file_path, target_string):
+    try:
+        with open(file_path, 'r') as file:
+            if str(target_string) in file.read():
+                return True
+            return False
+    except:
+        pass
+
 def save_link_to_file(link):
     with open('sql.txt', 'a') as file:
         file.write(link + '\n')
