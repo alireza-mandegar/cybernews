@@ -46,6 +46,11 @@ def check_link_in_file(link):
             return True
         return False
 
+def get_chat_ids():
+    with open("member.txt", 'r') as file:
+        chat_ids = file.readlines()
+    return chat_ids
+
 def check_news(news, website):
     req = requests.get(website)
     soup = BeautifulSoup(req.text, 'html.parser')
