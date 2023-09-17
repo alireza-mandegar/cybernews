@@ -15,6 +15,18 @@ def append_to_file(file_path, data_to_append):
     except:
         pass
 
+def delete_string_from_file(file_path, string_to_delete):
+    try:
+        with open(file_path, 'r') as file:
+            file_content = file.read()
+
+        modified_content = file_content.replace(string_to_delete, '')
+
+        with open(file_path, 'w') as file:
+            file.write(modified_content)
+    except:
+        pass
+
 def save_link_to_file(link):
     with open('sql.txt', 'a') as file:
         file.write(link + '\n')
