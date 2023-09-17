@@ -36,16 +36,6 @@ def check_string_in_file(file_path, target_string):
     except:
         pass
 
-def save_link_to_file(link):
-    with open('sql.txt', 'a') as file:
-        file.write(link + '\n')
-
-def check_link_in_file(link):
-    with open('sql.txt', 'r') as file:
-        if link in file.read():
-            return True
-        return False
-
 def get_chat_ids():
     with open("member.txt", 'r') as file:
         chat_ids = file.readlines()
