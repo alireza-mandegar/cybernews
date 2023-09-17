@@ -1,19 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
+import json
 
-def telegram_send_message(message):
+def telegram_send_message(message, chat_id):
     bot_token = "blaw blaw blaw"
-    chat_id = "blaw"
     telegram_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
     params = {'chat_id': chat_id, 'text': message}
     response = requests.post(telegram_url, data=params)
-
-def append_to_file(file_path, data_to_append):
-    try:
-        with open(file_path, 'a') as file:
-            file.write(str(data_to_append) + "\n")
-    except:
-        pass
 
 def delete_string_from_file(file_path, string_to_delete):
     try:
@@ -24,6 +17,13 @@ def delete_string_from_file(file_path, string_to_delete):
 
         with open(file_path, 'w') as file:
             file.write(modified_content)
+    except:
+        pass
+
+def append_to_file(file_path, data_to_append):
+    try:
+        with open(file_path, 'a') as file:
+            file.write(str(data_to_append) + "\n")
     except:
         pass
 
